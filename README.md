@@ -1,36 +1,62 @@
-# WEB system
-- [ ] Replace "WEB system" with your system name
+# BOOKS
+
 
 ## Description
-- [ ] Provide WEB system description in few sentences - its purpose, users, etc.
+Web app for searching and storing information about your favourite books.
 
 ## Entity definition
-- [ ] Define the entity ("object" that will be manipulated) of WEB system
-- [ ] Entity should have a name
-- [ ] Entity should have 3 mandatory attributes:
-    - [ ] ID - depending on specific service this could be a number or string
-    - [ ] Creation date - (if applicable for specific service) ISO 8601 format date string
-    - [ ] Modification date - (if applicable for specific service) ISO 8601 format date string
-- [ ] Entity should have at least 5 custom attributes
-    - [ ] Each attribute should have a type defined: number, string, ISO 8601 date string, boolean, object, array or other
-    - [ ] Each attribute should have restrictions defined: list of constants, or number range, or string length, or string format, or object schema, or array schema or other. For example, you can use `joi` language to define restrictions: https://github.com/hapijs/joi/blob/v13.1.2/API.md
+    
+- "ID":
+- "Title": string,
+- "Author": string,
+- "Description": string,
+- "PublishDate": ISO 8601 format date string,
+- "Volume": int
+- "Content": string (base64 encoded content)
 
 ## API definition
-- [ ] Define specific service (konkrečios paslaugos) API methods that WEB system is going to use
-- [ ] Optionally define additional API methods that WEB system is going to expose
-- [ ] API should have at least 4 methods
-    - [ ] A method to return entity by ID. Should not have request body
-    - [ ] A method to return multiple entities (Array) by ID. This method should support at least one header value to:
-        - [ ] Return only entities that match pattern in one of its attributes
-        - [ ] Return 10 entities starting provided index
-        - [ ] Return sorted entities by one of its attributes (both ascending and descending)
-        - [ ] Other (should be approved by Product Owner (PO))
-    - [ ] A method to remove entity by ID. Returns removed entity. Should not have request body
-    - [ ] A method to update entity by ID. Accepts entity to update and returns updated entity
-- [ ] Each method should have HTTP method defined
-- [ ] Each method should have URI defined (use {id} as entity ID placeholder)
-- [ ] Should return all 4xx errors in unified format. Define format using `joi` language
-- [ ] Should return all 5xx errors in unified format. Define format using `joi` language
+- Get "Hostname/Book/{ID}"
+
+-- Returns 200 (OK) specific Book by ID
+-- Returns 404 (NotFound) if book doesn't exist.
+-- Returns 401 (NotAuthorized) if you are not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution.
+
+- Get "Hostname/book/{Name}"
+
+-- Returns 200 (OK) specific Book by Name
+-- Returns 404 (NotFound) if book doesn't exist.
+-- Returns 401 (NotAuthorized) if you are not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution
+
+- Get "Hostname/books?author=author&items=5"
+
+-- Returns 200 (OK) returns all books or all books by specific author if it is specified or specified amount of items.
+-- Returns 200 with empty list if no books matches author.
+-- Returns 401 (NotAuthorized) if you are not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution.
+
+- Delete "Hostname/Book/{ID}"
+
+-- Returns 200 (OK) if deleted
+-- Returns 404 (NotFound) if book not found.
+-- Returns 401 (NotAuthorized) user not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution.
+
+
+- Update "Hostname/book/{id}" with book object
+
+-- Returns 200 (OK) if updated
+-- Returns 404 (NotFound) if book not found.
+-- Returns 401 (NotAuthorized) user not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution.
+
+- Post "Hostname/book/{id}" with book object
+
+-- Returns 200 (OK) if Inserted
+-- Returns 409 (NotFound) if same book already inserted.
+-- Returns 401 (NotAuthorized) user not logged in.
+-- Returns 500 (Internal Server Error) if Error happens on execution.
 
 ## UI definition
 - [ ] Define the structure of how visually the WEB system is going to look like
