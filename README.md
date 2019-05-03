@@ -10,8 +10,8 @@ Web app for searching and storing information about your favourite books.
 - "Title": string (0,255),
 - "Author": string(0, 255),
 - "Description": string (0,8000),
-- "CoverLink": string (0, 255),
-- "PublishDate": ISO 8601 format date string (10),
+- "CoverLink": string (0, 1000),
+- "PublishDate": ISO 8601 format date string (1,11),
 
 ## API definition
 ### Get "https://www.googleapis.com/books/v1/volumes?q=programming&maxResults=30"
