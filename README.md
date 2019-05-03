@@ -16,46 +16,43 @@ Web app for searching and storing information about your favourite books.
 - "Content": string (base64 encoded content)
 
 ## API definition
-### Get "Hostname/Book/{ID}"
+### Get "https://www.googleapis.com/books/v1/volumes?q=programming&maxResults=30"
 
-- Returns 200 (OK) specific Book by ID
-- Returns 404 (NotFound) if book doesn't exist.
+- Returns 200 (OK) List of books
 - Returns 401 (NotAuthorized) if you are not logged in.
 - Returns 500 (Internal Server Error) if Error happens on execution.
 
-### Get "Hostname/book/{Name}"
+### Get "https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/volumes"
 
-- Returns 200 (OK) specific Book by Name
+- Returns 200 (OK) list of your favourite books.
 - Returns 404 (NotFound) if book doesn't exist.
 - Returns 401 (NotAuthorized) if you are not logged in.
 - Returns 500 (Internal Server Error) if Error happens on execution
 
-### Get "Hostname/books?author=author&items=5"
+### Get "https://www.googleapis.com/auth/books"
 
-- Returns 200 (OK) returns all books or all books by specific author if it is specified or specified amount of items.
-- Returns 200 with empty list if no books matches author.
+- Returns 200 (OK) returns code needed to get auth token.
 - Returns 401 (NotAuthorized) if you are not logged in.
 - Returns 500 (Internal Server Error) if Error happens on execution.
 
-### Delete "Hostname/Book/{ID}"
+### post "https://www.googleapis.com/oauth2/v4/token" with authentification code object
+
+
+- Returns 200 (OK) if body is correct
+- Returns 401 (NotAuthorized) user not logged in.
+- Returns 500 (Internal Server Error) if Error happens on execution.
+
+
+### post "https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/addVolume?volumeId={id}" 
+- Returns 200 (OK) if inserted
+- Returns 404 (NotFound) if book not found.
+- Returns 401 (NotAuthorized) user not logged in.
+- Returns 500 (Internal Server Error) if Error happens on execution.
+
+### Post "https://www.googleapis.com/books/v1/mylibrary/bookshelves/0/removeVolume?volumeId={id}" 
 
 - Returns 200 (OK) if deleted
-- Returns 404 (NotFound) if book not found.
-- Returns 401 (NotAuthorized) user not logged in.
-- Returns 500 (Internal Server Error) if Error happens on execution.
-
-
-### Update "Hostname/book/{id}" with book object
-
-- Returns 200 (OK) if updated
-- Returns 404 (NotFound) if book not found.
-- Returns 401 (NotAuthorized) user not logged in.
-- Returns 500 (Internal Server Error) if Error happens on execution.
-
-### Post "Hostname/book/{id}" with book object
-
-- Returns 200 (OK) if Inserted
-- Returns 409 (NotFound) if same book already inserted.
+- Returns 409 (NotFound) if book not found on your library.
 - Returns 401 (NotAuthorized) user not logged in.
 - Returns 500 (Internal Server Error) if Error happens on execution.
 
