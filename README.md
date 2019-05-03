@@ -6,14 +6,12 @@ Web app for searching and storing information about your favourite books.
 
 ## Entity definition
     
-- "ID":
-- "Title": string,
-- "Author": string,
-- "Description": string,
-- "CoverLink": string,
-- "PublishDate": ISO 8601 format date string,
-- "Volume": int
-- "Content": string (base64 encoded content)
+- "ID" string (exact 12),
+- "Title": string (0,255),
+- "Author": string(0, 255),
+- "Description": string (0,8000),
+- "CoverLink": string (0, 255),
+- "PublishDate": ISO 8601 format date string (10),
 
 ## API definition
 ### Get "https://www.googleapis.com/books/v1/volumes?q=programming&maxResults=30"
